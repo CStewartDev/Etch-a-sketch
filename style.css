@@ -7,14 +7,24 @@ body {
 
 .sketch-container {
     display: grid;
-    width: 800px;
-    height: 800px;
+    width: 600px;
+    height: 600px;
     background-color: black;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(6,1fr);
+    border-right: .1rem solid grey;
+    border-bottom: .1rem solid grey;
+    box-shadow: 0 0 0 1rem tomato;
+    border-radius: .5rem;
+    margin-top:3rem;
 }
 
 .sketch {
-    background-color: bisque;
-    border: 1px solid black;
+    background-color: white;
+    border-top: .12rem solid grey;
+    border-left: .12rem solid grey;
+}
+
+.filled {
+    background-color: black;
 }

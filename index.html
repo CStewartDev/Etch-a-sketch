@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Etch-a-Sketch</title>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
     <link href="https://unpkg.com/sanitize.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
 </head>
@@ -12,7 +13,9 @@
     <h1>Etch-A-Sketch</h1>
 
     <div class="btn-container">
-        <button class="Clear">Clear</button>
+        <button onclick="clearGrid()" class="clearBtn">Clear</button>
+        <input type="range" name="gridsize" id="gridsize" value="12" min="4" max ="50" autocomplete="off" >
+        <label for="gridsize"><span class="sliderOutput"></span></label>
     </div>
 
     <div class="sketch-container">
