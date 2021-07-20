@@ -1,3 +1,10 @@
+html{
+    height: 100vh;
+    background: rgb(131,58,180);
+    background: linear-gradient(126deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%);
+    font-family: 'Montserrat', sans-serif;
+}
+
 body {
     display: flex;
     justify-content: center;
@@ -14,7 +21,7 @@ body {
     grid-template-rows: repeat(6,1fr);
     border-right: .1rem solid grey;
     border-bottom: .1rem solid grey;
-    box-shadow: 0 0 0 1rem tomato;
+    box-shadow: 0 0 0 2rem tomato;
     border-radius: .5rem;
     margin-top:3rem;
 }

@@ -55,6 +55,7 @@ shadeOn = !shadeOn;
 multicolorOn = false;
 }
 
+//this grabs the A value and cuts it down. The background behind the container is Black, so they start to blend together.
 function shader(e) {
     if(e.target.style.backgroundColor.match(/rgba/)){
         let currentColor = e.target.style.backgroundColor;

@@ -1,5 +1,23 @@
 # Etch-a-sketch
 Odin project- Etch- a Sketch
+
+Deviated from the instructions slightly, made a slider instead of a prompt. Need to brush up on styles... This thing looks pretty rough, but the JS is pretty consise, and kept it under 100 lines
+
+I feel way more comfortable with event listeners, and the DOM. It was always scary before, but realizing it is just a big Object, made it less scary.
+
+Things to  improve or add
+
+    *color picker instead of default to black
+    *toggle gridlines
+    *style for the buttons
+    *toggle styles for buttons to know which is selected
+    *style for the slider
+    *add a lightnen button
+
+
+
+
+
 Parameters:
 
 Create a webpage with a 16x16 grid of square divs.
@@ -34,3 +52,5 @@ Add a button to the top of the screen which will clear the current grid and send
 
 (Optional): Instead of just changing the color of a square from black to white (for example), have each pass through with the mouse change it to a completely random RGB value. Then try having each pass just add another 10% of black to it so that only after 10 passes is the square completely black.
 Push your project to GitHub!
+
+
