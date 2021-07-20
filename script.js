@@ -1,8 +1,10 @@
 const container = document.querySelector('.sketch-container');
-const clearBtn = document.querySelector('.clearBtn');
 const gridSize = document.getElementById('gridsize')
 const slider = document.querySelector('.sliderOutput')
-let size = gridSize.value; //the grid is square. size X size 
+
+let size = gridSize.value; //the grid is square. size X size
+let shadeOn = false;
+let multicolorOn = false; 
 
 function createGrid (size){
     container.textContent ="";
@@ -25,7 +27,7 @@ function createDiv (i) {
 
 function clearGrid () {
     let arr = Array.from(container.children)
-    arr.forEach(item=> item.classList.remove('filled'))
+    arr.forEach(item=> item.style.backgroundColor = "white")
 }
 
 function handleRangeUpdate() {
@@ -33,9 +35,41 @@ function handleRangeUpdate() {
     createGrid(size);
 }
 
+function multicolor() {
+    multicolorOn = !multicolorOn;
+    shadeOn = false;
+}
+
+function random_rgba() {
+    var o = Math.round, r = Math.random, s = 255;
+    return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + .9 + ')';
+}
+
+function shade() {
+shadeOn = !shadeOn;
+multicolorOn = false;
+}
+
 container.addEventListener('mouseover',(e) => {
-    e.target.classList.add('filled')
+    if(e.target.className === "sketch-container") return;
+    if(shadeOn){             
+        if (e.target.style.backgroundColor.match(/rgba/)) {
+        let currentOpacity = Number(e.target.style.backgroundColor.slice(-4, -1));
+        if (currentOpacity <= 0.9) {
+            e.target.style.backgroundColor = `rgba(0, 0, 0, ${currentOpacity + 0.1})`;
+            e.target.classList.add('gray');
+        }
+    } else if (e.target.style.backgroundColor == 'rgb(0, 0, 0)') {
+        return;
+    } else {
+        e.target.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';  
+    }
+    
+    }else if(multicolorOn){ e.target.style.backgroundColor = `${random_rgba()}`
+
+    } else e.target.style.backgroundColor = "black"
 })
+
 
 gridSize.addEventListener('change',handleRangeUpdate)
 
