@@ -7,17 +7,19 @@ let shadeOn = false;
 let multicolorOn = false; 
 
 function createGrid (size){
-    container.textContent ="";
+    container.textContent =""; //clears all previous divs if any
     container.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
-    container.style.gridTemplateRows = `repeat(${size}, 1fr)`;
-    slider.textContent = `${size}`;
-    let pow = Math.pow(size,2);
+    container.style.gridTemplateRows = `repeat(${size}, 1fr)`; // makes our grid
+    slider.textContent = `${size}`; //displays number for slider span
+    let pow = Math.pow(size,2); 
     for(let i =0; i< pow; i++){
         let div = createDiv(i);
+        div.style.backgroundColor = "rgba(255,255,255,.99)"
         container.appendChild(div)
     }
 }
 
+//creates a sketch block
 function createDiv (i) {
     let div = document.createElement("div");
         div.classList.add('sketch');
@@ -25,54 +27,56 @@ function createDiv (i) {
     return div
 }
 
+//clears background for all divs
 function clearGrid () {
     let arr = Array.from(container.children)
-    arr.forEach(item=> item.style.backgroundColor = "white")
+    arr.forEach(item=> item.style.backgroundColor = "rgba(255,255,255,.99)")
 }
 
+//fires when the range updates
 function handleRangeUpdate() {
     size = this.value;
     createGrid(size);
 }
 
+// turns multi on and all others off
 function multicolor() {
     multicolorOn = !multicolorOn;
     shadeOn = false;
 }
-
+// grabbed from Stack Overflow. very consise way of randomizing. i hard coded A to .9 to make the colors brighter
 function random_rgba() {
     var o = Math.round, r = Math.random, s = 255;
     return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + .9 + ')';
 }
-
+// turns shade on and all others off
 function shade() {
 shadeOn = !shadeOn;
 multicolorOn = false;
 }
 
-container.addEventListener('mouseover',(e) => {
-    if(e.target.className === "sketch-container") return;
-    if(shadeOn){             
-        if (e.target.style.backgroundColor.match(/rgba/)) {
-        let currentOpacity = Number(e.target.style.backgroundColor.slice(-4, -1));
-        if (currentOpacity <= 0.9) {
-            e.target.style.backgroundColor = `rgba(0, 0, 0, ${currentOpacity + 0.1})`;
-            e.target.classList.add('gray');
-        }
-    } else if (e.target.style.backgroundColor == 'rgb(0, 0, 0)') {
-        return;
-    } else {
-        e.target.style.backgroundColor = 'rgba(0, 0, 0, 0.1)';  
+function shader(e) {
+    if(e.target.style.backgroundColor.match(/rgba/)){
+        let currentColor = e.target.style.backgroundColor;
+        let cut = currentColor.match(/\.\w/gm);
+        if(cut===null) cut = 0
+        let shadedColor = currentColor.replace(/\.\w/gm, cut[0]-.1)
+        e.target.style.backgroundColor = shadedColor;
     }
-    
-    }else if(multicolorOn){ e.target.style.backgroundColor = `${random_rgba()}`
+}
 
-    } else e.target.style.backgroundColor = "black"
+//switching logic.
+container.addEventListener('mouseover',(e) => {
+    if(e.target.className === "sketch-container") return; //kept triggering events on the container
+    if(shadeOn){ shader(e)    
+    }else if(multicolorOn){ e.target.style.backgroundColor = `${random_rgba()}`
+    }else e.target.style.backgroundColor = "rgba(0,0,0,.1)"
 })
 
 
 gridSize.addEventListener('change',handleRangeUpdate)
 
+//creates the first default grid on page load.
 createGrid(size);
 
 
